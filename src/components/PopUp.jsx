@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const PopUp = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleRedirect = () => {
     if (currentUser) {
@@ -22,14 +23,29 @@ const PopUp = () => {
   };
 
   return (
-    <div
-      className="fixed z-10 top-1/3 transform -translate-y-1/2 bg-blue-500 text-white p-3 lg:p-4 rounded-e-3xl shadow-lg cursor-pointer hover:bg-blue-600"
-      onClick={handleRedirect}
-    >
-      <div className="flex items-center space-x-2 self-center">
-        <span className="font-bold text-sm lg:text-base">🛒 Pesan Sekarang</span>
+    <>
+      {/* Tombol untuk membuka/tutup pop-up */}
+      <button
+        onClick={() => setIsVisible(!isVisible)}
+        className="fixed z-20 top-1/3 transform -translate-y-1/2 bg-blue-500 text-white px-3 py-2 rounded-r-lg shadow-lg hover:bg-blue-600"
+      >
+        {isVisible ? "< " : "🛒 >"}
+      </button>
+
+      {/* Pop-up */}
+      <div
+        className={`fixed z-10 top-1/3 transform -translate-y-1/2 bg-blue-500 text-white p-3 lg:p-4 rounded-e-lg shadow-lg cursor-pointer hover:bg-blue-600 transition-transform duration-300 ${
+          isVisible ? "translate-x-0" : "-translate-x-full"
+        }`}
+        onClick={handleRedirect}
+      >
+        <div className="flex items-center space-x-2 self-center">
+          <span className="font-bold text-sm lg:text-base">
+            🛒 Pesan Sekarang
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

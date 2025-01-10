@@ -8,6 +8,7 @@ const Navbar = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleProfileClick = () => {
     if (currentUser) {
@@ -65,13 +66,79 @@ const Navbar = () => {
           } lg:flex w-full lg:w-auto`}
         >
           <ul className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8 font-medium p-4 lg:p-0 bg-white lg:bg-transparent border-t lg:border-none">
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-700 hover:text-blue-700"
+            {/* Category with Dropdown */}
+            <li className="relative group">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
               >
                 Category
-              </a>
+              </button>
+              <ul
+                className={`absolute left-0 mt-2 bg-white border rounded-lg shadow-lg ${
+                  isDropdownOpen ? "block" : "hidden"
+                } group-hover:block lg:group-hover:block`}
+              >
+                <div className="absolute left-0 top-full mt-2 hidden group-hover:flex bg-white border border-gray-200 rounded-lg shadow-lg w-[600px] p-4">
+                  <div className="grid grid-cols-4 gap-4">
+                    {/* Percetakan */}
+                    <div>
+                      <h3 className="text-blue-600 font-bold text-lg mb-2">
+                        PERCETAKAN
+                      </h3>
+                      <ul className="space-y-1 text-gray-700">
+                        <li>Poster</li>
+                        <li>Brosur</li>
+                        <li>Kartu Nama</li>
+                        <li>Sticker</li>
+                        <li>Name Tag</li>
+                        <li>Amplop</li>
+                        <li>Undangan</li>
+                        <li>Nota | Kwitansi</li>
+                        <li>Kalender Dinding</li>
+                        <li>Kalender Duduk</li>
+                      </ul>
+                    </div>
+                    {/* Souvenir */}
+                    <div>
+                      <h3 className="text-blue-600 font-bold text-lg mb-2">
+                        SOUVENIR
+                      </h3>
+                      <ul className="space-y-1 text-gray-700">
+                        <li>Goodie Bag</li>
+                        <li>Thumbler</li>
+                        <li>PIN</li>
+                        <li>Bolpen</li>
+                        <li>Payung</li>
+                        <li>Tali ID Card</li>
+                      </ul>
+                    </div>
+                    {/* Advertising */}
+                    <div>
+                      <h3 className="text-blue-600 font-bold text-lg mb-2">
+                        ADVERTISING
+                      </h3>
+                      <ul className="space-y-1 text-gray-700">
+                        <li>Roll Banner</li>
+                        <li>X-Banner</li>
+                        <li>MMT</li>
+                      </ul>
+                    </div>
+                    {/* Packaging */}
+                    <div>
+                      <h3 className="text-blue-600 font-bold text-lg mb-2">
+                        PACKAGING
+                      </h3>
+                      <ul className="space-y-1 text-gray-700">
+                        <li>Dus Corrugated</li>
+                        <li>Box Jinjing | Gabel Box</li>
+                        <li>Paperbag Tali</li>
+                        <li>Plastic</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ul>
             </li>
             <li>
               <a
