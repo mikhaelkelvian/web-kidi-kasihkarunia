@@ -11,9 +11,11 @@ import AccountDetail from "./components/AccountDetail";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Contact from "./components/Contact"; 
+import Contact from "./components/Contact";
 import Profile from "./components/Profile";
 import PopUp from "./components/PopUp";
+import Admin from "./components/Admin";
+import Products from "./components/Product";
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
                 <div>
                   <Navbar />
                   <Home />
+                  <Products/>
                   <Gallery />
                   <About />
                   <Footer />
@@ -55,6 +58,9 @@ function App() {
                 </div>
               }
             />
+
+            <Route path="/admin" element={<Admin />} />
+
             <Route path="/auth" element={<AuthLayout />}>
               <Route path="signin" element={<Signin />} />
               <Route path="signup" element={<Signup />} />
