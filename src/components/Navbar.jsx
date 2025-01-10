@@ -91,6 +91,14 @@ const Navbar = () => {
             </li>
             <li>
               <a
+                onClick={() => navigate("/admin")}
+                className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
+              >
+                Admin
+              </a>
+            </li>
+            <li>
+              <a
                 onClick={handleProfileClick}
                 className="block lg:hidden py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
               >
