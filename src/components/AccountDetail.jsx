@@ -11,7 +11,7 @@ const AccountDetail = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/');
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }

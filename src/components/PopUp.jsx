@@ -23,7 +23,7 @@ const PopUp = () => {
 
   return (
     <div
-      className="fixed left-4 z-40 top-1/2 transform -translate-y-1/2 bg-green-500 text-white p-4 rounded-lg shadow-lg cursor-pointer hover:bg-green-600"
+      className="fixed z-40 top-1/3 transform -translate-y-1/2 bg-blue-500 text-white p-4 rounded-e-lg shadow-lg cursor-pointer hover:bg-blue-600"
       onClick={handleRedirect}
     >
       <div className="flex items-center space-x-2">

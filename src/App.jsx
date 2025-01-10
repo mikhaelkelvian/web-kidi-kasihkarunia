@@ -21,7 +21,7 @@ function App() {
       <Router>
         <div>
           {/* Tambahkan PopUp di sini */}
-          <PopUp />
+          {location.pathname !== "/account" && <PopUp />}
           <Routes>
             <Route
               path="/"
