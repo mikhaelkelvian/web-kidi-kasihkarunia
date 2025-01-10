@@ -1,5 +1,5 @@
 import React from "react";
-import blueBG from "../assets/Blue-bg.png"; // Import gambar
+import blueBG from "../assets/Blue-bg.png";
 
 const Contact = () => {
   return (

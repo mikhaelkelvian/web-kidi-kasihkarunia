@@ -1,6 +1,6 @@
 import React from "react";
-import Logo from "../assets/LogoKK.png"; // Path logo
-import { FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa"; // Import ikon
+import Logo from "../assets/LogoKK.png"; 
+import { FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa"; 
 
 const Footer = () => {
   return (

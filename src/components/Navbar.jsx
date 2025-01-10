@@ -24,7 +24,7 @@ const Navbar = () => {
           <img src={Logo2} className="h-8" alt="Flowbite Logo" />
           <span
             className="self-center text-2xl font-semibold whitespace-nowrap text-blue-600"
-            style={{ fontFamily: "Niconne" }} // Menambahkan font Niconne
+            style={{ fontFamily: "Niconne" }}
           >
             Kasih Karunia
           </span>

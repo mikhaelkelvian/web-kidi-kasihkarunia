@@ -1,6 +1,6 @@
 import React from "react";
 import blueBG from "../assets/Blue-bg.png";
-import profile from "../assets/Profile.png"; // Import gambar profile
+import profile from "../assets/Profile.png"; 
 
 const Profile = () => {
   return (
@@ -19,7 +19,7 @@ const Profile = () => {
       {/* Gambar Profile */}
       <div className="flex flex-col items-center mt-8">
         <img
-          src={profile} // Menampilkan gambar profile
+          src={profile}
           alt="Profile"
           className="w-500 h-80 border-10 "
         />
