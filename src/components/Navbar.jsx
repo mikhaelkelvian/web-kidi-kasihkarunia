@@ -80,7 +80,7 @@ const Navbar = () => {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
               >
-                Category
+                Category 
               </button>
               <ul
                 className={`absolute left-0 mt-2 bg-white border rounded-lg shadow-lg ${
