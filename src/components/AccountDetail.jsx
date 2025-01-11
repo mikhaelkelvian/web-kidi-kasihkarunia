@@ -12,7 +12,7 @@ const AccountDetail = () => {
     try {
       await signOut(auth);
       navigate("/");
-    } catch (error) {
+    } catch (error) { 
       alert(error.message);
     }
   };

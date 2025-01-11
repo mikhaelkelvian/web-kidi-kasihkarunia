@@ -13,17 +13,17 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
-import PopUp from "./components/PopUp";
 import Admin from "./components/Admin";
 import Products from "./components/Product";
+import LoginAdmin from "./components/LoginAdmin";
+import AdminRoute from "./components/AdminRoute";
+import ConditionalPopUp from "./components/ConditionalPopUp";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div>
-          {/* Tambahkan PopUp di sini */}
-          {location.pathname !== "/account" && <PopUp />}
+        <ConditionalPopUp>
           <Routes>
             <Route
               path="/"
@@ -31,7 +31,7 @@ function App() {
                 <div>
                   <Navbar />
                   <Home />
-                  <Products/>
+                  <Products />
                   <Gallery />
                   <About />
                   <Footer />
@@ -59,12 +59,24 @@ function App() {
               }
             />
 
-            <Route path="/admin" element={<Admin />} />
+            {/* admin route */}
+            <Route path="/login-admin" element={<LoginAdmin />} />
 
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <Admin />
+                </AdminRoute>
+              }
+            />
+
+            {/* client route */}
             <Route path="/auth" element={<AuthLayout />}>
               <Route path="signin" element={<Signin />} />
               <Route path="signup" element={<Signup />} />
             </Route>
+
             <Route
               path="/account"
               element={
@@ -74,7 +86,7 @@ function App() {
               }
             />
           </Routes>
-        </div>
+        </ConditionalPopUp>
       </Router>
     </AuthProvider>
   );

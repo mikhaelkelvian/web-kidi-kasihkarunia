@@ -18,6 +18,14 @@ const Navbar = () => {
     }
   };
 
+  const handleAdminClick = () => {
+    if(currentUser) {
+      navigate("/admin");
+    } else {
+      navigate("/login-admin");
+    }
+  }
+
   return (
     <nav className="fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border-b border-gray-300 z-50">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
@@ -158,7 +166,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                onClick={() => navigate("/admin")}
+                onClick={handleAdminClick}
                 className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
               >
                 Admin
