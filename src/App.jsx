@@ -81,6 +81,7 @@ function App() {
               path="/account"
               element={
                 <PrivateRoute>
+                  <Navbar/>
                   <AccountDetail />
                 </PrivateRoute>
               }

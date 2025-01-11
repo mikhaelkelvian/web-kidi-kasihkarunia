@@ -3,6 +3,8 @@ import { db, auth } from "../firebase";
 import { collection, addDoc, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import axios from "axios";
+import { CiLogout } from "react-icons/ci";
+import { IoChevronBack } from "react-icons/io5";
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +12,7 @@ const Admin = () => {
   const [imageFile, setImageFile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(null);
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -97,12 +100,18 @@ const Admin = () => {
           <h2 className="text-3xl font-semibold">Apa itu dashboard admin?</h2>
           <span className="h-[1px] bg-slate-500 opacity-75"></span>
           <p className="font-medium">
-            Di dashboard admin adalah tempat dimana kamu dapat menambahkan data produk mu secara otomatis dan tentunya cepat. Karena disini kamu hanya perlu memasukkan data-data uang diperlukan untuk menambahkan produk baru.
+            Dashboard admin adalah tempat dimana kamu dapat menambahkan data produk mu secara otomatis dan tentunya cepat. Karena disini kamu hanya perlu memasukkan data-data uang diperlukan untuk menambahkan produk baru.
           </p>
-          {/* logout button */}
-          <button onClick={handleLogout} className="px-4 py-3 bg-red-500 text-white rounded-lg my-7">
-            Logout
-          </button>
+          {/* back to home & logout action */}
+          <div className="flex flex-col gap-3 my-7">
+            <a href="/" className="flex flex-row justify-center gap-1 px-4 py-3 bg-blue-500 hover:bg-blue-600 transition duration-200 text-center text-white rounded-lg">
+              <IoChevronBack size={25} color="#fff"/> Ke Beranda
+            </a>
+            {/* logout button */}
+            <button onClick={handleLogout} className="flex flex-row justify-center gap-3 px-4 py-3 bg-red-500 hover:bg-red-600 transition duration-200 text-white rounded-lg">
+              <CiLogout size={25} color="#fff" /> Logout
+            </button>
+          </div>
         </div>
       </div>
 
@@ -112,7 +121,7 @@ const Admin = () => {
         {/* form add new product */}
         <form onSubmit={isEditing ? handleUpdateProduct : handleAddProduct} className="flex flex-col space-y-5">
           <h1 className="text-2xl font-medium">{isEditing ? "Edit Produk" : "Tambahkan Produk Baru Anda"}</h1>
-          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full h-[150px] p-2 border-2 rounded border-slate-400" />
+          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full h-[150px] p-2 border-2 rounded border-slate-400" required/>
           <div className="flex flex-row gap-4">
             <input type="text" placeholder="Nama" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} className="w-full p-2 border rounded" required />
             <input type="text" placeholder="Harga Satuan" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })} className="w-full p-2 border rounded" />
