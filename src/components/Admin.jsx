@@ -13,6 +13,9 @@ const Admin = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(null);
 
+  // imageBB Api Key
+  const imgBBKey = "34554820ac53ecd3a3cd2df2361c9cbf";
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
