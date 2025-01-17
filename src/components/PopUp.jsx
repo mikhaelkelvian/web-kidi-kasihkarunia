@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
+import Pesanan from "../assets/Logo-WA.png";
+
 const PopUp = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -27,14 +29,18 @@ const PopUp = () => {
       {/* Tombol untuk membuka/tutup pop-up */}
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="fixed z-20 top-1/3 transform -translate-y-1/2 bg-blue-500 text-white px-3 py-2 rounded-r-lg shadow-lg hover:bg-blue-600"
+        className="fixed z-20 top-1/3 transform -translate-y-1/2 bg-white text-black px-3 py-2 rounded-r-lg shadow-lg hover:bg-blue-600"
       >
-        {isVisible ? "< " : "🛒 >"}
+        {isVisible ? (
+          "<"
+        ) : (
+          <img src={Pesanan} alt="Keranjang" className="w-5 h-5" />
+        )}
       </button>
 
       {/* Pop-up */}
       <div
-        className={`fixed z-10 top-1/3 transform -translate-y-1/2 bg-blue-500 text-white p-3 lg:p-4 rounded-e-lg shadow-lg cursor-pointer hover:bg-blue-600 transition-transform duration-300 ${
+        className={`fixed z-10 top-1/3 transform -translate-y-1/2 bg-white text-black p-3 lg:p-4 rounded-e-lg shadow-lg cursor-pointer hover:bg-blue-600 transition-transform duration-300 ${
           isVisible ? "translate-x-0" : "-translate-x-full"
         }`}
         onClick={handleRedirect}

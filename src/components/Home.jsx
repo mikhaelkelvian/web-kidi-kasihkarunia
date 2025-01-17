@@ -8,29 +8,28 @@ import Gambar1 from "../assets/G6.png";
 import Gambar2 from "../assets/G7.png";
 import Gambar3 from "../assets/G8.png";
 
-
 const App = () => {
   return (
-    <div className="bg-gray-300 min-h-screen flex items-center justify-center relative">
+    <div className="bg-gray-300 min-h-screen flex flex-col lg:flex-row items-center justify-center p-4">
       {/* Text Section */}
-      <div className="absolute left-10 top-1/2 transform -translate-y-1/2 z-10">
+      <div className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1 mb-8 lg:mb-0">
         <h1
-          className="text-5xl md:text-6xl font-bold text-blue-600"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-600"
           style={{ fontFamily: "Niconne" }}
         >
           Percetakan
         </h1>
-        <p className="text-2xl text-gray-600 mt-4 whitespace-pre-line">
-          <p>Kasih Karunia tempat percetakan</p>
+        <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mt-4">
+          Kasih Karunia tempat percetakan <br />
           yang murah, cepat, dan terpercaya.
         </p>
       </div>
 
       {/* Image Section */}
-      <div className="relative w-1/2 h-auto ml-auto mt-10 flex items-center justify-center">
+      <div className="w-full lg:w-1/2 order-1 lg:order-2">
         <Swiper
           pagination={{ clickable: true }}
-          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop={true}
           modules={[Pagination, Autoplay]}
           className="w-full"
@@ -39,21 +38,21 @@ const App = () => {
             <img
               src={Gambar1}
               alt="Contoh Produk 1"
-              className="object-contain w-full max-h-[500px] mx-auto bg-transparent"
+              className="object-contain w-full max-h-[400px] lg:max-h-[500px] mx-auto"
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
               src={Gambar2}
               alt="Contoh Produk 2"
-              className="object-contain w-full max-h-[500px] mx-auto bg-transparent"
+              className="object-contain w-full max-h-[400px] lg:max-h-[500px] mx-auto"
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
               src={Gambar3}
               alt="Contoh Produk 3"
-              className="object-contain w-full max-h-[500px] mx-auto bg-transparent"
+              className="object-contain w-full max-h-[400px] lg:max-h-[500px] mx-auto"
             />
           </SwiperSlide>
         </Swiper>
