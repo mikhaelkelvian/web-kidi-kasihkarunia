@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { db, auth } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 
 const AccountDetail = () => {
 
@@ -70,7 +71,10 @@ const AccountDetail = () => {
           <button onClick={handleEdit} className="px-4 py-2 bg-slate-500 hover:bg-slate-600 transition duration-150 text-white text-lg font-medium rounded-lg">
             Edit
           </button>
-          <button onClick={handleLogout} className="px-4 py-2 bg-red-500 hover:bg-red-600 transition duration-150 text-white text-lg font-medium rounded-lg">
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-md"
+          >
             Logout
           </button>
         </div>

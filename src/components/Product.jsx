@@ -7,6 +7,7 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const categories = ["all", "percetakan", "souvenir", "advertising", "packaging"];
+  const [activeProduct, setActiveProduct] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
