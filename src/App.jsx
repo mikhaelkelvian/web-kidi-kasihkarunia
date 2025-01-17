@@ -18,6 +18,7 @@ import Products from "./components/Product";
 import LoginAdmin from "./components/LoginAdmin";
 import AdminRoute from "./components/AdminRoute";
 import ConditionalPopUp from "./components/ConditionalPopUp";
+import EditAccount from "./components/EditAccount";
 
 function App() {
   return (
@@ -81,8 +82,18 @@ function App() {
               path="/account"
               element={
                 <PrivateRoute>
-                  <Navbar/>
+                  <Navbar />
                   <AccountDetail />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/edit-account"
+              element={
+                <PrivateRoute>
+                  <Navbar />
+                  <EditAccount />
                 </PrivateRoute>
               }
             />

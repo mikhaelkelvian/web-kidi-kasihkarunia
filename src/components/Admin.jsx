@@ -7,8 +7,9 @@ import { CiLogout } from "react-icons/ci";
 import { IoChevronBack } from "react-icons/io5";
 
 const Admin = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({ name: "", description: "", price: "", imageUrl: "" });
+  const [newProduct, setNewProduct] = useState({ name: "", description: "", price: "", imageUrl: "", category: "" });
   const [imageFile, setImageFile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(null);
@@ -52,6 +53,7 @@ const Admin = () => {
   // Add Project
   const handleAddProduct = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const uploadedImageUrl = await handleImageUpload();
@@ -60,10 +62,12 @@ const Admin = () => {
 
       console.log("Document written with ID: ", docRef.id); // Debugging
       setProducts([...products, { id: docRef.id, ...productData }]);
-      setNewProduct({ name: "", description: "", price: "", imageUrl: "" });
+      setNewProduct({ name: "", description: "", price: "", imageUrl: "", category: "" });
       setImageFile(null);
     } catch (error) {
       console.error("Error adding document: ", error); // Debugging
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,7 +112,7 @@ const Admin = () => {
           {/* back to home & logout action */}
           <div className="flex flex-col gap-3 my-7">
             <a href="/" className="flex flex-row justify-center gap-1 px-4 py-3 bg-blue-500 hover:bg-blue-600 transition duration-200 text-center text-white rounded-lg">
-              <IoChevronBack size={25} color="#fff"/> Ke Beranda
+              <IoChevronBack size={25} color="#fff" /> Ke Beranda
             </a>
             {/* logout button */}
             <button onClick={handleLogout} className="flex flex-row justify-center gap-3 px-4 py-3 bg-red-500 hover:bg-red-600 transition duration-200 text-white rounded-lg">
@@ -124,15 +128,28 @@ const Admin = () => {
         {/* form add new product */}
         <form onSubmit={isEditing ? handleUpdateProduct : handleAddProduct} className="flex flex-col space-y-5">
           <h1 className="text-2xl font-medium">{isEditing ? "Edit Produk" : "Tambahkan Produk Baru Anda"}</h1>
-          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full h-[150px] p-2 border-2 rounded border-slate-400" required/>
+          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full h-[150px] p-2 border-2 rounded border-slate-400" required />
           <div className="flex flex-row gap-4">
             <input type="text" placeholder="Nama" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} className="w-full p-2 border rounded" required />
             <input type="text" placeholder="Harga Satuan" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })} className="w-full p-2 border rounded" />
           </div>
+          <select
+            name="category-option"
+            id="category-option"
+            value={newProduct.category} // Bind value ke state
+            onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })} // Update state
+            required
+          >
+            <option value="Percetakan">Percetakan</option>
+            <option value="Souvenir">Souvenir</option>
+            <option value="Advertising">Advertising</option>
+            <option value="Packaging">Packaging</option>
+          </select>
           <textarea rows={4} type="text" placeholder="Deskripsi" value={newProduct.description} onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })} className="w-full p-2 border rounded" required />
-          <button type="submit" className="w-3/4 mx-auto py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg">
-            {isEditing ? "Perbarui Produk" : "Tambah Produk"}
+          <button type="submit" className={`w-3/4 mx-auto py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isLoading}>
+            {isLoading ? "Loading..." : isEditing ? "Perbarui Produk" : "Tambah Produk"}
           </button>
+          ;
           {isEditing && (
             <button
               type="button"
@@ -158,10 +175,13 @@ const Admin = () => {
             {products.map((product) => (
               <div key={product.id} className="flex flex-row justify-between p-4 my-4 bg-blue-200 border-2 border-blue-500 rounded-lg">
                 <div className="flex flex-col gap-1 w-3/4">
-                  <h3 className="text-xl font-semibold">{product.name}</h3>
+                  <div className="flex flex-row gap-4 mx-2">
+                    <h3 className="text-2xl font-semibold self-center">{product.name}</h3>
+                    {product.category && <span className="bg-blue-500 h-fit self-center px-3 rounded-xl text-sm font-semibold text-slate-200">{product.category}</span>}
+                  </div>
                   <span className="h-[1px] bg-slate-500 w-full opacity-75"></span>
-                  <p>{product.description}</p>
-                  {product.imageUrl && <img src={product.imageUrl} alt={product.name} className="size-16 object-cover" />}
+                  <p className="mx-2">{product.description}</p>
+                  {product.imageUrl && <img src={product.imageUrl} alt={product.name} className="size-32 object-cover" />}
                 </div>
                 <div className="flex flex-col gap-2 w-fit self-center">
                   <button onClick={() => startEditingProduct(product)} className="px-6 py-1 bg-gray-500 text-white rounded">
