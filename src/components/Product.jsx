@@ -14,6 +14,7 @@ const Products = () => {
       try {
         const querySnapshot = await getDocs(collection(db, "products"));
         const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        console.log("Fetched products:", data); // Debugging log
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products: ", error);
@@ -22,20 +23,20 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  const filteredProducts = selectedCategory === "all" ? products : products.filter((product) => product.category === selectedCategory);
+  const filteredProducts = selectedCategory === "all" ? products : products.filter((product) => product.category?.toLowerCase() === selectedCategory.toLowerCase());
 
   if (selectedProduct) {
     return (
       <div className="bg-gradient-to-r from-blue-50 to-blue-200 p-8">
         <div className="flex flex-col md:flex-row items-center bg-white rounded-lg shadow-lg p-6">
           <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="size-1/3 rounded-lg" />
-          <div className="md:ml-6 mt-4 md:mt-0">
-            <div className="flex flex-row gap-2 ">
-              <h1 className="text-2xl font-bold mb-4 self-center">{selectedProduct.name}</h1>
-              <p className="mt-2 text-slate-200 bg-blue-500 w-fit px-2 py-1 rounded">{selectedProduct.category}</p>
+          <div className="md:ml-6 mt-4 md:mt-0 w-3/5">
+            <div className="flex flex-row gap-2">
+              <h1 className="text-3xl font-bold self-center">{selectedProduct.name}</h1>
+              <p className="bg-blue-500 h-fit px-3 rounded-xl self-center text-sm font-semibold text-slate-200">{selectedProduct.category}</p>
             </div>
+            <span className="flex my-3 h-[1px] opacity-70 bg-slate-700"></span>
             <p className="text-gray-700">{selectedProduct.description}</p>
-
             {selectedProduct.link && (
               <a href={selectedProduct.link} className="block mt-4 text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
                 View Product

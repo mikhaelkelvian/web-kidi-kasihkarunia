@@ -38,20 +38,22 @@ const Signup = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
-      <form onSubmit={handleSignup} className="space-y-4">
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border border-gray-300 rounded-md" required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-2 border border-gray-300 rounded-md" required />
-        <button type="submit" className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 ${loading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={loading}>
-          {loading ? "Signing Up..." : "Sign Up"}
-        </button>
-      </form>
-      <div className="text-center mt-4 text-black">
-        Sudah punya akun?{" "}
-        <Link to="/auth/signin" className="text-blue-500 hover:underline">
-          Login Sekarang
-        </Link>
+    <div className="flex h-screen w-full">
+      <div className="flex flex-col w-2/5 h-fit self-center mx-auto gap-6 bg-white p-9 rounded-lg shadow-xl border border-blue-200">
+        <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
+        <form onSubmit={handleSignup} className="space-y-4">
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border border-gray-300 rounded-md" required />
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-2 border border-gray-300 rounded-md" required />
+          <button type="submit" className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 ${loading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={loading}>
+            {loading ? "Signing Up..." : "Sign Up"}
+          </button>
+        </form>
+        <div className="text-center mt-4 text-black">
+          Sudah punya akun?{" "}
+          <Link to="/auth/signin" className="text-blue-500 hover:underline">
+            Login Sekarang
+          </Link>
+        </div>
       </div>
     </div>
   );

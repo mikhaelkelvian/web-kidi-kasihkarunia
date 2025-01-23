@@ -33,7 +33,7 @@ function App() {
                   <Navbar />
                   <Home />
                   <Products />
-                  <Gallery />
+                  {/* <Gallery /> */}
                   <About />
                   <Footer />
                 </div>
@@ -61,7 +61,16 @@ function App() {
             />
 
             {/* admin route */}
-            <Route path="/login-admin" element={<LoginAdmin />} />
+            <Route
+              path="/login-admin"
+              element={
+                <>
+                  <Navbar />
+                  <LoginAdmin />
+                  <Footer />
+                </>
+              }
+            />
 
             <Route
               path="/admin"
@@ -73,9 +82,27 @@ function App() {
             />
 
             {/* client route */}
-            <Route path="/auth" element={<AuthLayout />}>
-              <Route path="signin" element={<Signin />} />
-              <Route path="signup" element={<Signup />} />
+            <Route path="/auth">
+              <Route
+                path="signin"
+                element={
+                  <>
+                    <Navbar />
+                    <Signin />
+                    <Footer />
+                  </>
+                }
+              />
+              <Route
+                path="signup"
+                element={
+                  <>
+                    <Navbar />
+                    <Signup />
+                    <Footer />
+                  </>
+                }
+              />
             </Route>
 
             <Route
@@ -84,6 +111,7 @@ function App() {
                 <PrivateRoute>
                   <Navbar />
                   <AccountDetail />
+                  <Footer />
                 </PrivateRoute>
               }
             />
@@ -94,6 +122,7 @@ function App() {
                 <PrivateRoute>
                   <Navbar />
                   <EditAccount />
+                  <Footer />
                 </PrivateRoute>
               }
             />
