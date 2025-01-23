@@ -6,7 +6,7 @@ const ConditionalPopUp = ({ children }) => {
   const location = useLocation();
 
   // Path yang tidak boleh menampilkan PopUp
-  const excludedPaths = ["/auth/signin", "/auth/signup", "/account", "/login-admin", "/admin"];
+  const excludedPaths = ["/auth/signin", "/auth/signup", "/account", "/login-admin", "/admin", "/edit-account"];
 
   // Fungsi untuk mengecek apakah current path termasuk dalam excluded paths
   const shouldShowPopup = () => {
