@@ -10,7 +10,7 @@ import Gambar3 from "../assets/G8.png";
 
 const App = () => {
   return (
-    <div className="bg-gray-300 min-h-screen flex flex-col lg:flex-row items-center justify-center p-4">
+    <div className="bg-gradient-to-t from-gray-300 to-blue-300 min-h-screen flex flex-col lg:flex-row items-center justify-center p-4">
       {/* Text Section */}
       <div className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1 mb-8 lg:mb-0">
         <h1

@@ -4,7 +4,7 @@ import { FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-100 py-8">
+    <footer className="bg-gradient-to-r from-blue-200 via-gray-200 to-blue-200 py-8">
       <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 px-4">
         {/* Bagian Kiri */}
         <div className="flex flex-col items-center md:items-start">
