@@ -52,7 +52,7 @@ const Products = () => {
   }
 
   return (
-    <section id="product" className="bg-gradient-to-r from-blue-50 to-blue-200 p-8">
+    <section id="product" className="bg-gradient-to-t from-blue-300 to-gray-300 p-8">
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl font-semibold">Product</h2>

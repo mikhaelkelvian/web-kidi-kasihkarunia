@@ -52,19 +52,19 @@ const AccountDetail = () => {
       <div className="mx-10 flex flex-col gap-5">
         <div id="email" className="py-4 px-7 space-y-2 bg-blue-100 rounded-lg border border-blue-500">
           <h2 className="text-2xl font-semibold">Email:</h2>
-          <p className="text-lg font-medium py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{currentUser.email}</p>
+          <p className="text-lg overflow-hidden font-medium py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{currentUser.email}</p>
         </div>
         <div id="fullName" className="py-4 px-7 space-y-2 bg-blue-100 rounded-lg border border-blue-500">
           <h2 className="text-2xl font-semibold">Nama Lengkap:</h2>
-          <p className="text-lg font-medium py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{userDetails.fullName}</p>
+          <p className="text-lg font-medium overflow-hidden py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{userDetails.fullName}</p>
         </div>
         <div id="address" className="py-4 px-7 space-y-2 bg-blue-100 rounded-lg border border-blue-500">
           <h2 className="text-2xl font-semibold">Alamat:</h2>
-          <p className="text-lg font-medium py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{userDetails.address}</p>
+          <p className="text-lg overflow-hidden font-medium py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{userDetails.address}</p>
         </div>
         <div id="phone" className="py-4 px-7 space-y-2 bg-blue-100 rounded-lg border border-blue-500">
           <h2 className="text-2xl font-semibold">Nomor Hp:</h2>
-          <p className="text-lg font-medium py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{userDetails.phone}</p>
+          <p className="text-lg overflow-hidden font-medium py-2 px-4 bg-blue-200 rounded-lg border border-blue-500">{userDetails.phone}</p>
         </div>
         <div id="action" className="my-4 flex flex-col gap-3">
           <button onClick={handleEdit} className="px-4 py-2 bg-slate-500 hover:bg-slate-600 transition duration-150 text-white text-lg font-medium rounded-lg">

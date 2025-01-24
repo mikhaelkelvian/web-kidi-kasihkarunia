@@ -46,11 +46,21 @@ const Admin = () => {
   const handleImageUpload = async () => {
     if (!imageFile) return null;
 
+  try {
     const formData = new FormData();
     formData.append("image", imageFile);
 
-    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${imgBBKey}`, formData);
+    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${imgBBKey}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
     return response.data.data.url;
+  } catch (error) {
+    console.error("Image upload error:", error);
+    alert("Gagal mengunggah gambar");
+    return null;
+  }
   };
 
   // Add Project
@@ -150,11 +160,8 @@ const Admin = () => {
         <form onSubmit={isEditing ? handleUpdateProduct : handleAddProduct} className="flex flex-col space-y-5">
           <h1 className="text-2xl font-medium">{isEditing ? "Edit Produk" : "Tambahkan Produk Baru Anda"}</h1>
           {/* input gambar produk */}
-          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full h-[150px] p-2 border-2 rounded border-slate-400" required />
-          <div className="flex flex-row gap-4">
-            <input type="text" placeholder="Nama" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} className="w-full p-2 border rounded" required />
-            <input type="text" placeholder="Harga Satuan (Masukkan Angkanya Saja)" value={newProduct.price} onChange={handlePriceChange} className="w-full p-2 border rounded" />
-          </div>
+          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full p-2 border-2 rounded border-slate-400" required />
+          <input type="text" placeholder="Nama" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} className="w-full p-2 border rounded" required />
           <select
             name="category-option"
             id="category-option"
@@ -176,7 +183,7 @@ const Admin = () => {
               type="button"
               onClick={() => {
                 setIsEditing(false);
-                setNewProduct({ name: "", description: "", price: "", imageUrl: "" });
+                setNewProduct({ name: "", description: "", price: "0", imageUrl: "" });
                 setImageFile(null);
               }}
               className="w-3/4 mx-auto py-2 bg-none hover:bg-red-500 border-2 border-red-500 rounded-lg font-medium text-red-500 hover:text-white transition duration-150"
@@ -202,7 +209,6 @@ const Admin = () => {
                     {product.category && <span className="bg-blue-500 h-fit self-center px-3 rounded-xl text-sm font-semibold text-slate-200">{product.category}</span>}
                   </div>
                   <span className="h-[1px] bg-slate-500 w-full opacity-75"></span>
-                  <h4 className="mx-2 font-medium text-lg"> Harga Satuan: {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(product.price)}</h4>
                   <p className="mx-2">{product.description}</p>
                   {product.imageUrl && <img src={product.imageUrl} alt={product.name} className="mt-2 h-32 lg:h-48 object-cover rounded" />}
                 </div>
