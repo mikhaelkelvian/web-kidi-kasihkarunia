@@ -17,8 +17,9 @@ const Admin = () => {
 
   const navigate = useNavigate();
 
-  // imageBB Api Key
-  const imgBBKey = import.meta.env.VITE_IMGBB_API_KEY;
+  // cloudinary configuration
+  const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
   const handleLogout = async () => {
     try {
@@ -44,23 +45,27 @@ const Admin = () => {
 
   // Handle Image Upload
   const handleImageUpload = async () => {
-    if (!imageFile) return null;
+    if (!imageFile) {
+      alert("Mohon pilih gambar!");
+      return;
+    }
 
-  try {
-    const formData = new FormData();
-    formData.append("image", imageFile);
+    try {
+      const formData = new FormData();
+      formData.append("file", imageFile);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${imgBBKey}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-    return response.data.data.url;
-  } catch (error) {
-    console.error("Image upload error:", error);
-    alert("Gagal mengunggah gambar");
-    return null;
-  }
+      const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data.secure_url;
+    } catch (error) {
+      console.error("Image upload error:", error);
+      alert("Gagal mengunggah gambar");
+      return null;
+    }
   };
 
   // Add Project
@@ -70,15 +75,31 @@ const Admin = () => {
 
     try {
       const uploadedImageUrl = await handleImageUpload();
-      const productData = { ...newProduct, imageUrl: uploadedImageUrl };
+
+      if (!uploadedImageUrl) {
+        setIsLoading(false);
+        return;
+      }
+
+      const productData = {
+        ...newProduct,
+        imageUrl: uploadedImageUrl,
+      };
+
       const docRef = await addDoc(collection(db, "products"), productData);
 
-      console.log("Document written with ID: ", docRef.id); // Debugging
+      // Debugging
+      console.log("Document written with ID: ", docRef.id);
+
       setProducts([...products, { id: docRef.id, ...productData }]);
+
+      // reset form
       setNewProduct({ name: "", description: "", price: "", imageUrl: "", category: "" });
       setImageFile(null);
     } catch (error) {
-      console.error("Error adding document: ", error); // Debugging
+      // Debugging
+      console.error("Error adding document: ", error);
+      alert("Gagal menambahkan produk.");
     } finally {
       alert("Berhasil menambahkan produk!");
       setIsLoading(false);
@@ -88,17 +109,46 @@ const Admin = () => {
   // Update Project
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const uploadedImageUrl = imageFile ? await handleImageUpload() : newProduct.imageUrl;
-    const updatedProduct = { ...newProduct, imageUrl: uploadedImageUrl };
+    try {
+      const uploadedImageUrl = imageFile ? await handleImageUpload() : newProduct.imageUrl;
 
-    const productRef = doc(db, "products", currentProductId);
-    await updateDoc(productRef, updatedProduct);
+      const updatedProduct = {
+        ...newProduct,
+        imageUrl: uploadedImageUrl,
+      };
 
-    setProducts(products.map((project) => (project.id === currentProductId ? { id: currentProductId, ...updatedProduct } : project)));
-    setIsEditing(false);
-    setNewProduct({ name: "", description: "", price: "", imageUrl: "" });
-    setImageFile(null, currentProductId, setCurrentProductId(null));
+      const productRef = doc(db, "products", currentProductId);
+      await updateDoc(productRef, updatedProduct);
+
+      setProducts(products.map((project) => (project.id === currentProductId ? { id: currentProductId, ...updatedProduct } : project)));
+
+      // reset form
+      setIsEditing(false);
+      setNewProduct({ name: "", description: "", price: "", imageUrl: "" });
+      setImageFile(null, currentProductId, setCurrentProductId(null));
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("Gagal memperbarui produk");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+
+    // preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      setNewProduct((prev) => ({
+        ...prev,
+        imageUrl: reader.result,
+      }));
+    };
+    reader.readAsDataURL(file);
   };
 
   // Delete Project
@@ -126,8 +176,8 @@ const Admin = () => {
   const handlePriceChange = (e) => {
     const input = e.target.value;
     const formattedPrice = formatToRupiah(input);
-    setNewProduct({...newProduct, price: formattedPrice})
-  }
+    setNewProduct({ ...newProduct, price: formattedPrice });
+  };
 
   return (
     <div className="flex flex-col lg:flex-row h-auto lg:h-screen">
@@ -137,7 +187,7 @@ const Admin = () => {
           <h2 className="text-2xl lg:text-3xl font-semibold">Apa itu dashboard admin?</h2>
           <span className="h-[1px] bg-slate-500 opacity-75"></span>
           <p className="font-medium text-sm lg:text-base">
-            Dashboard admin adalah tempat dimana kamu dapat menambahkan data produk mu secara otomatis dan tentunya cepat. Karena disini kamu hanya perlu memasukkan data-data uang diperlukan untuk menambahkan produk baru.
+            Dashboard admin adalah tempat dimana kamu dapat menambahkan data produk mu secara otomatis dan tentunya cepat. Karena disini kamu hanya perlu memasukkan data-data yang diperlukan untuk menambahkan produk baru.
           </p>
           {/* back to home & logout action */}
           <div className="flex flex-col lg:flex-row gap-3 my-7">
@@ -160,7 +210,9 @@ const Admin = () => {
         <form onSubmit={isEditing ? handleUpdateProduct : handleAddProduct} className="flex flex-col space-y-5">
           <h1 className="text-2xl font-medium">{isEditing ? "Edit Produk" : "Tambahkan Produk Baru Anda"}</h1>
           {/* input gambar produk */}
-          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full p-2 border-2 rounded border-slate-400" required />
+          <input type="file" onChange={handleImageChange} className="w-full p-2 border-2 rounded border-slate-400" required={!isEditing} />
+          {/* preview gambar */}
+          {newProduct.imageUrl && <img src={newProduct.imageUrl} alt="Preview" className="w-full h-96" />}
           <input type="text" placeholder="Nama" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} className="w-full p-2 border rounded" required />
           <select
             name="category-option"
