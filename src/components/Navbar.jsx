@@ -31,135 +31,68 @@ const Navbar = () => {
         {/* Logo Section */}
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={Logo2} className="h-8" alt="Kasih Karunia Logo" />
-          <span
-            className="self-center text-2xl font-semibold whitespace-nowrap text-blue-600"
-            style={{ fontFamily: "Niconne" }}
-          >
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-blue-600" style={{ fontFamily: "Niconne" }}>
             Kasih Karunia
           </span>
         </a>
-        <div className="hidden lg:flex flex-row gap-10">
-        <li>
-          <a
-            href="#product"
-            className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
-          >
-            Product
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={() => navigate("/contact")}
-            className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
-          >
-            Contact
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={() => navigate("/profile")}
-            className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
-          >
-            Profile
-          </a>
-        </li>
-
+        <div className="hidden lg:flex flex-row gap-10 font-semibold">
+          <li>
+            <a href="#product" className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer">
+              Product
+            </a>
+          </li>
+          <li>
+            <a onClick={() => navigate("/contact")} className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a onClick={() => navigate("/profile")} className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer">
+              Profile
+            </a>
+          </li>
         </div>
 
         {/* Hamburger Menu (Mobile) */}
         <div className="lg:hidden">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="focus:outline-none"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d={
-                  isMenuOpen
-                    ? "M6 18L18 6M6 6l12 12"
-                    : "M4 6h16M4 12h16M4 18h16"
-                }
-              />
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
             </svg>
           </button>
         </div>
 
         {/* Sidebar Navigation */}
-        <div
-          className={`fixed top-0 left-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
-            isMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <button
-            className="absolute top-4 right-4 focus:outline-none"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+        <div className={`fixed top-0 left-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
+          <button className="absolute top-4 right-4 focus:outline-none" onClick={() => setIsMenuOpen(false)}>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
           <ul className="flex flex-col space-y-4 p-4 bg-gray-300 h-screen">
-            <a
-              href="/"
-              className="flex items-center space-x-3 rtl:space-x-reverse"
-            >
+            <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
               <img src={Logo2} className="h-8" alt="Kasih Karunia Logo" />
-              <span
-                className="self-center text-2xl font-semibold whitespace-nowrap text-blue-600"
-                style={{ fontFamily: "Niconne" }}
-              >
+              <span className="self-center text-2xl font-semibold whitespace-nowrap text-blue-600" style={{ fontFamily: "Niconne" }}>
                 Kasih Karunia
               </span>
             </a>
             <li>
-              <a
-                onClick={() => navigate("/product")}
-                className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
-              >
+              <a onClick={() => navigate("/product")} className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer">
                 Product
               </a>
             </li>
             <li>
-              <a
-                onClick={() => navigate("/contact")}
-                className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
-              >
+              <a onClick={() => navigate("/contact")} className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer">
                 Contact
               </a>
             </li>
             <li>
-              <a
-                onClick={() => navigate("/profile")}
-                className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
-              >
+              <a onClick={() => navigate("/profile")} className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer">
                 Profile
               </a>
             </li>
             <li>
-              <a
-                onClick={handleProfileClick}
-                className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer"
-              >
+              <a onClick={handleProfileClick} className="block py-2 px-3 text-gray-700 hover:text-blue-700 cursor-pointer">
                 Akun Saya
               </a>
             </li>
