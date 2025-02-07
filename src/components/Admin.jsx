@@ -268,7 +268,15 @@ const Admin = () => {
                   <button onClick={() => startEditingProduct(product)} className="px-6 py-1 bg-gray-500 text-white rounded">
                     Edit
                   </button>
-                  <button onClick={() => handleDeleteProduct(product.id)} className="px-6 py-1 bg-red-500 text-white rounded">
+                  <button
+                    onClick={() => {
+                      if (window.confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
+                        handleDeleteProduct(product.id);
+                        alert("Produk berhasil dihapus");
+                      }
+                    }}
+                    className="px-6 py-1 bg-red-500 text-white rounded"
+                  >
                     Delete
                   </button>
                 </div>
